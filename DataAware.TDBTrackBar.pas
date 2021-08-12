@@ -22,6 +22,7 @@ type
     procedure UpdateData(Sender: TObject);
     procedure ActiveChange(Sender: TObject);
   public
+    procedure SetPosition(const pos: Integer);
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     property Field: TField read GetField;
@@ -128,6 +129,13 @@ begin
   FDataLink.DataSource := Value;
   Enabled := FDataLink.Active and (FDataLink.Field <> nil) and
     not FDataLink.Field.ReadOnly;
+end;
+
+procedure TDBTrackBar.SetPosition(const pos: Integer);
+begin
+  FDataLink.Edit;
+  Position := pos;
+  FDataLink.Modified;
 end;
 
 procedure TDBTrackBar.UpdateData(Sender: TObject);
